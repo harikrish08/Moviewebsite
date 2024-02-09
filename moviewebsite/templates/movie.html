@@ -1,0 +1,103 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+    {{ product.desc|truncatewords:155 }}
+{% endblock %}
+
+{% block title %}
+    {% if category %}
+        {{ movie.name }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div>
+        <div>
+            <p><a href="{%url 'movieapp:Allmoviecat' %}">Home</a> | <a href="{{ movie.category.get_url }}">{{ movie.category }}</a></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div style="min-width:18rem">
+                <img src="{{ movie.img.url }}" alt="{{ movie.title }}" width="250px">
+            </div>
+        </div>
+        <div class="col-md-6 prod_detail">
+            <h4 class="my_prod_title">{{ movie.title }}</h4>
+
+            <p class="text-justify"><b>Plot: </b>{{ movie.desc }}</p>
+             <p><b>Genre: </b>{{ movie.category }}</p>
+            <p><b>Cast: </b>{{ movie.actors }}</p>
+            <p><b>Release Date: </b>{{ movie.rel_d }}</p>
+            <a href="{{ movie.t_link }}">Trailer</a>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-md-2">
+            <form action="{% url 'dataapp:delete_movie' mov_id=movie.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete">
+            </form>
+        </div>
+            <div class="col-md-2">
+            <form action="{% url 'dataapp:update_movie' mov_id=movie.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Update">
+            </form>
+        </div>
+    </div><br>
+<div>
+   <h2>Reviews & Ratings</h2>
+
+
+        <a href="{%url 'dataapp:list_reviews' movie_id=movie.id %}">View Reviews</a>
+
+    <br>
+       <div>
+          <h2> Add Review & Rating</h2>
+          <form method="POST" enctype="multipart/form-data" action="{% url 'dataapp:add_review' movie_id=movie.id %}">
+             {% csrf_token %}
+              <div>
+              Review<br>
+             <input type="text" name="review" placeholder="Enter Your Review"><br>
+              </div>
+              <div class="rate">
+              Rating<br>
+                  <input type="text" name="rating" placeholder="Enter Your Rating"><br>
+              </div>
+                           <br>
+              <input type="submit">
+
+
+        </form>
+</div>
+
+    <!--<input type="Radio" name="rating" placeholder="Rate the Movie">
+              <input type="Radio" name="rating" id='rating5' value="5" required><label for="rating5" title="5"></label>
+              <input type="Radio" name="rating" id='rating4.5' value="4.5" required><label for="rating4.5" title="4.5" class="half"></label>
+               <input type="Radio" name="rating" id='rating4' value="4" required><label for="rating4" title="4"></label>
+                <input type="Radio" name="rating" id='rating3.5' value="3.5" required><label for="rating3.5" title="3.5" class="half"></label>
+                <input type="Radio" name="rating" id='rating3' value="3" required><label for="rating3" title="3"></label>
+                <input type="Radio" name="rating" id='rating2.5' value="2.5" required><label for="rating2.5" title="2.5" class="half"></label>
+                <input type="Radio" name="rating" id='rating2' value="2" required><label for="rating2" title="2"></label>
+                <input type="Radio" name="rating" id='rating1.5' value="1.5" required><label for="rating1.5" title="1.5" class="half"></label>
+                <input type="Radio" name="rating" id='rating1' value="1" required><label for="rating1" title="1"></label>
+                <input type="Radio" name="rating" id='rating0.5' value="0.5" required><br><label for="rating0.5" title="0.5" class="half"></label>--->
+
+
+
+    </div>
+    <div>
+        {% else %}
+   <h2>Reviews & Ratings</h2>
+
+
+        <a href="{%url 'dataapp:list_reviews' movie_id=movie.id %}">View Reviews</a>
+    </div>
+    {% endif %}
+    <br>
+</div>
+{% endblock %}

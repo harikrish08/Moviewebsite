@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+      <center>
+<div class="card" style="width:50rem;background-color:##F8F9F9 ;">
+    <h1 style="font-size=80">Your Profile</h1>
+    <div class="card-body">
+        <h4>Username : {{username}}</h4>
+        <h4>First Name : {{first_name}}</h4>
+        <h4>Last Name : {{last_name}}</h4>
+        <h4>Email : {{email}}</h4>
+
+    </div>
+           </div>
+          <a class="btn btn-warning" href="{% url 'userapp:updateprofile' user.id %}">Update</a>
+</center>
+{% endblock %}

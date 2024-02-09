@@ -1,0 +1,57 @@
+.nav_item{
+     letter-spacing:.2em;
+    font-size:14px;
+    text-transform:uppercase;
+}
+
+
+.card{
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  margin-bottom:20px;
+}
+.navbar
+{
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);;
+}
+.col-md-2
+{
+    padding-top:20px;
+}
+table {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    tr {
+        margin-bottom: 20px; /* Add spacing between table rows */
+    }
+
+/*rating
+.rate > input{
+    display:none;
+}
+.rate{
+    display:inline-block;
+    border:0;
+}
+.rate > label{
+    float:right;
+}
+
+.rate > label:before{
+    dispaly:inline-block;
+    font-size:1.1rem;
+    font-family:FontAwesome;
+    content:"\f005";
+    margin:0;
+    padding:.3rem,.2rem;
+    }
+
+.rate .half:before{
+    content:'\f089';
+    position:absolute;
+    padding-right:0;
+}
+input:check ~ label, label:hover ~ label{
+    color:#ffb503
+}
+*/

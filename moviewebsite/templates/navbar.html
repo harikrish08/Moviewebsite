@@ -1,0 +1,40 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width:100%">
+  <a class="navbar-brand" href="{% url 'movieapp:Allmoviecat' %}"><img src="{% static 'img/logos.png' %}" width="80px"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown {% if 'movieapp' in request.path %}active{% endif %}">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'movieapp:Allmoviecat' %}">All Movies</a></li>
+            {% for cat in links %}
+              <li><a class="dropdown-item" href="{{cat.get_url}}">{{cat.name}}</a></li>
+            {% endfor %}
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
+      {% if user.is_authenticated %}
+      <li class="nav-item"><a class="nav-link" href="{%url 'userapp:profile'%}">{{user.username}}</a></li>
+      <li class="nav-item"><a class="nav-link" href="{%url 'userapp:logout'%}">Logout</a></li>
+      {% else %}
+        <li class="nav-item">
+        <a class="nav-link " href="{%url 'userapp:registration'%}">Sign Up</a>
+      </li>
+          <li class="nav-item">
+        <a class="nav-link " href="{%url 'userapp:login'%}">Log In</a>
+      </li>
+      {% endif %}
+    </ul>
+     </div>
+  <form class="d-flex" action="{% url 'searchapp:search' %}" method="GET">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
+
+</nav>

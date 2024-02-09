@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{category.desc|truncatewords:155}}
+    {% else %}
+        SHOPWISE.You can shop everything
+    {% endif %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{category.name}}
+    {% else %}
+       See Movies..
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if category %}
+<div>
+    <div class="row my_row_class">
+        <div class="mx-auto">
+        <p><a href="{%url 'movieapp:Allmoviecat' %}">See all Movies</a></p>
+    </div>
+        </div>
+</div>
+    {% endif %}
+
+   {% if category %}
+<div>
+    <h3 class="text-center my_title">{{category.name}}</h3>
+</div>
+    {% else %}
+    <div>
+        <h3 class="text-center my_title">Films</h3>
+
+    {% endif %}
+    <div class="container">
+        <div class="row">
+            {% for movie in movies.object_list %}
+                <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="card">
+                        <a href="{{movie.get_url}}"><img class="card-img-top" src="{{movie.img.url}}" alt="{{movie.title}}" width="250px" height="250"></a>
+
+            <div class="card-body">
+                <h4>{{movie.title}}</h4>
+                 <p>{{movie.year}}</p>
+            </div>
+                             </div>
+                </div>
+
+            {% endfor %}
+           <div style="padding-top:20px;">
+                <a class="btn btn-success" href="{% url 'dataapp:add_movie' %}">Add Movie</a>
+
+            </div>
+
+                {% if products.paginator.num_pages > 1 %}
+                <hr>
+                <div class="text-center">
+                    {% for pg in products.paginator.page_range %}
+                        <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active {% endif %}">{{pg}}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

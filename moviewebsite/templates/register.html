@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <center>
+<div class="card" style="width:40rem;background-color:##F8F9F9 ;">
+
+<h1 style="font-size=80">Register Here</h1>
+    <p style="color:red;">    {% for msg in messages %}
+     {{msg}}
+    {% endfor %}
+   </p>
+  <div class="card-body">
+  <form method="POST" action="registration">
+        {% csrf_token %}
+
+    <label>Username</label>
+    <input type="text" name="username" placeholder="Enter your username"><br><br>
+    <label>First Name</label>
+    <input type="text" name="first_name" placeholder="Enter your first name"><br><br>
+    <label>Last Name</label>
+    <input type="text" name="last_name" placeholder="Enter your last name"><br><br>
+    <label>Email</label>
+    <input type="email" name="email" placeholder="Enter your email-id"><br><br>
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Enter password"><br><br>
+    <label>Confirm Password</label>
+    <input type="password" name="password1" placeholder="Confirm Password"><br><br>
+    <input type="submit">
+
+    </form>
+  </div>
+  </div>
+   </div>
+
+
+</center>
+{% endblock %}
